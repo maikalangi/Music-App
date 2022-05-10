@@ -1,0 +1,25 @@
+body {
+
+}
+
+h1 {
+    text-align: center;
+    margin: auto;
+}
+
+main {
+    display: block;
+}
+
+#field {
+    display: block;
+    margin: auto;
+}
+
+#button {
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    display: block;
+    /* background: url(music-app/images/play.png) no-repeat; */
+}
