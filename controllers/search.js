@@ -4,7 +4,7 @@ const express = require('express');
 const res = require('express/lib/response');
 require('dotenv').config();
 const fetch = require('node-fetch');
-const url = process.env.DATABASE_URL;
+const api = process.env.API;
 
 // INITIALIZE
 const router = express.Router();
@@ -15,7 +15,7 @@ const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
 // const headers = {
 //         'Accept':'application/json'
 //     };
-const promise = fetch(url)
+const promise = fetch(api)
     .then(r => r.json())
     .then(j => j.data)
     .then(d => link = sample(d))
@@ -42,7 +42,8 @@ router.get('/', (req, res) => {
         .then(j => j.data)
         .then(d => dataVar = d);
     res.render('index.ejs', {
-        link: dataVar
+        link: dataVar,
+        url: link
     });
 });
 
@@ -73,8 +74,12 @@ router.get('/:id/edit', (req, res) => {
 
 // SHOW
 router.get('/:id', (req, res) => {
+    const trending = fetch(link)
+        .then(r => r.json())
+        .then(j => j.data)
+        .then(d => dataVar = d);
     res.render('show.ejs', {
-
+        link: dataVar
     });
 });
 

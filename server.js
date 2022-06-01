@@ -7,7 +7,7 @@ require('dotenv').config();
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
 const fetch = require('node-fetch');
-const url = process.env.DATABASE_URL;
+const url = process.env.API;
 const morgan = require('morgan');
 
 // MIDDLEWARE
