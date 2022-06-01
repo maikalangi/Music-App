@@ -10,13 +10,6 @@ const fetch = require('node-fetch');
 const url = process.env.DATABASE_URL;
 const morgan = require('morgan');
 
-const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const promise = fetch(url);
-promise
-    .then(r => r.json())
-    .then(j => j.data)
-    .then(d => console.log(sample(d)))
-
 // MIDDLEWARE
 app.use(morgan('dev'));
 app.use(express.urlencoded ({ extended: true }));

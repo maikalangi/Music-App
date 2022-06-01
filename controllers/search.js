@@ -2,15 +2,48 @@
 const { Router } = require('express');
 const express = require('express');
 const res = require('express/lib/response');
+require('dotenv').config();
+const fetch = require('node-fetch');
+const url = process.env.DATABASE_URL;
 
 // INITIALIZE
 const router = express.Router();
+let link = "";
+let dataVar = [];
+// const name = 'audius-promo-app'
+const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
+// const headers = {
+//         'Accept':'application/json'
+//     };
+const promise = fetch(url)
+    .then(r => r.json())
+    .then(j => j.data)
+    .then(d => link = sample(d))
 
-// ROUTES
+// const dataPromise = fetch(link)
+//     .then(r => r.json())
+//     .then(j => j.data)
+//     .then(d => dataVar = d)
+      
+// fetch('https://audius-discovery-4.cultur3stake.com/v1/tracks/trending?app_name=EXAMPLEAPP',
+//     {
+//     }).then(function(res) {
+//         return res.json();
+//     }).then(function(body) {
+//         return body;
+//     });
+
+// ===========ROUTES=============
 
 // INDEX
 router.get('/', (req, res) => {
-    res.render('index.ejs');
+    const trending = fetch(link + '/v1/tracks/trending?')
+        .then(r => r.json())
+        .then(j => j.data)
+        .then(d => dataVar = d);
+    res.render('index.ejs', {
+        link: dataVar
+    });
 });
 
 // NEW
@@ -40,7 +73,9 @@ router.get('/:id/edit', (req, res) => {
 
 // SHOW
 router.get('/:id', (req, res) => {
-    res.render('show.ejs');
+    res.render('show.ejs', {
+
+    });
 });
 
 module.exports = router;
