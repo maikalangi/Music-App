@@ -9,4 +9,6 @@ const playlistSchema = new Schema({
     id: String,
 })
 
-module.exports = mongoose.model('playlist', playlistSchema)
+const Playlist = mongoose.model('playlist', playlistSchema);
+
+module.exports = Playlist;

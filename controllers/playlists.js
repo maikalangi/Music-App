@@ -9,6 +9,12 @@ const Playlist = require('../models/playlist');
 
 // INITIALIZE
 const router = express.Router();
+let link = "";
+const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const promise = fetch(api)
+    .then(r => r.json())
+    .then(j => j.data)
+    .then(d => link = sample(d))
 
 // ROUTES
 
@@ -24,12 +30,6 @@ router.get('/seed', (req, res) => {
 // INDEX
 router.get('/', (req, res) => {
     Playlist.find({}, (error, allSongs) => {
-        let link = "";
-        const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
-        const promise = fetch(api)
-            .then(r => r.json())
-            .then(j => j.data)
-            .then(d => link = sample(d))
         res.render('show.ejs', {
             link: allSongs,
             url: link,

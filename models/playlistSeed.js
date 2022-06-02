@@ -19,5 +19,5 @@ module.exports = [
         userHandle: "camouflybeats",
         genre: "Electronic",
         id: "XjBBJ",
-    }
+    },
 ]
