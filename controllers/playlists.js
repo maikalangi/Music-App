@@ -2,6 +2,7 @@
 const { Router } = require('express');
 const express = require('express');
 const res = require('express/lib/response');
+const fetch = require('node-fetch');
 const api = process.env.API;
 const url = process.env.DATABASE;
 const Playlist = require('../models/playlist');
@@ -11,9 +12,29 @@ const router = express.Router();
 
 // ROUTES
 
+// SEED
+const seed = require('../models/playlistSeed');
+router.get('/seed', (req, res) => {
+    Playlist.deleteMany({}, (error, allBooks) => {});
+    Playlist.create(seed, (error, data) => {
+        res.redirect('/playlist');
+    });
+});
+
 // INDEX
 router.get('/', (req, res) => {
-    res.render('index.ejs');
+    Playlist.find({}, (error, allSongs) => {
+        let link = "";
+        const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        const promise = fetch(api)
+            .then(r => r.json())
+            .then(j => j.data)
+            .then(d => link = sample(d))
+        res.render('show.ejs', {
+            link: allSongs,
+            url: link,
+        });
+    });
 });
 
 // NEW
@@ -33,7 +54,9 @@ router.put('/:id', (req, res) => {
 
 // CREATE
 router.post('/', (req, res) => {
-    res.redirect('/');
+    Playlist.create(req.body, (err, addSong) => {
+        res.redirect('/playlist');
+    });
 });
 
 // EDIT

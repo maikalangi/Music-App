@@ -7,12 +7,19 @@
     <title>Music App</title>
 </head>
 <body>
-    <h1>Audius Trending</h1>
-    <form action="/">
-        <input type="text" name="search">
-        <input type="submit">
-    </form>
+    <header>
+        <h1>Audius Trending</h1>
+        <ul>
+            <li>
+                <a href="/playlist">Playlists</a>
+            </li>
+        </ul>
+    </header>
     <main>
+        <form action="/">
+            <input type="text" name="search">
+            <input type="submit">
+        </form>
         <ul>
             <% for( let i = 0; i < link.length; i++ ) { %>
                 <li>
@@ -24,9 +31,12 @@
                             <%= link[i].genre %> <br/>
                             <video  controls name="media">
                                 <source src="<%= `${url}/v1/tracks/${link[i].id}/stream?` %>" type="audio/mpeg">
-                            </video>                           
+                            </video>
                         </section>
                     </a>
+                    <form action="/search" method="POST">
+                        <input type="submit" value="Add">                    
+                    </form>
                 </li>
             <% } %>
         </ul>
